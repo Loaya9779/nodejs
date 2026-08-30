@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "title": "Clean Code",
+        "author": "Robert C. Martin"
+    },
+    {
+        "id": 2,
+        "title": "Node.js Design Patterns",
+        "author": "Mario Casciaro"
+    },
+    {
+        "id": 3,
+        "title": "The Pragmatic Programmer",
+        "author": "David Thomas"
+    }
+]
