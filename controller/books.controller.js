@@ -11,7 +11,6 @@ const getAllBooks = async (req, res, next) => {
     }
 };
 
-// GET /books/:id
 const getBookById = async (req, res, next) => {
     try {
         const book = await Book.findById(req.params.id);
@@ -28,7 +27,6 @@ const getBookById = async (req, res, next) => {
     }
 };
 
-// POST /books
 const createBook = async (req, res, next) => {
     try {
         const { title, author, price } = req.body;
@@ -45,7 +43,6 @@ const createBook = async (req, res, next) => {
     }
 };
 
-// PUT /books/:id
 const updateBook = async (req, res, next) => {
     try {
         const book = await Book.findByIdAndUpdate(
@@ -69,7 +66,6 @@ const updateBook = async (req, res, next) => {
     }
 };
 
-// DELETE /books/:id
 const deleteBook = async (req, res, next) => {
     try {
         const book = await Book.findByIdAndDelete(req.params.id);
