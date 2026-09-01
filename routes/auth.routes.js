@@ -136,7 +136,7 @@ router.post("/login", async (req, res, next) => {
 // =========================
 // DELETE USER
 // =========================
-router.delete("/registers/:id", async (req, res, next) => {
+router.delete("/register/:id", async (req, res, next) => {
     try {
         const { id } = req.params;
 
