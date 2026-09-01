@@ -8,6 +8,10 @@ const router = express.Router();
 
 const JWT_SECRET = process.env.JWT_SECRET || "book-store-secret";
 
+
+// =========================
+// REGISTER
+// =========================
 router.post("/register", async (req, res, next) => {
     try {
         const { name, email, password } = req.body;
@@ -56,6 +60,29 @@ router.post("/register", async (req, res, next) => {
     }
 });
 
+
+// =========================
+// GET ALL USERS
+// =========================
+router.get("/register", async (req, res, next) => {
+    try {
+        const users = await User.find().select("-password");
+
+        return res.status(200).json({
+            success: true,
+            count: users.length,
+            users: users,
+        });
+
+    } catch (error) {
+        next(error);
+    }
+});
+
+
+// =========================
+// LOGIN
+// =========================
 router.post("/login", async (req, res, next) => {
     try {
         const { email, password } = req.body;
@@ -66,7 +93,6 @@ router.post("/login", async (req, res, next) => {
             });
         }
 
-        // Find user
         const user = await User.findOne({ email });
 
         if (!user) {
