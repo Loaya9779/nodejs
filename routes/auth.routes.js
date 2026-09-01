@@ -14,7 +14,7 @@ const JWT_SECRET = process.env.JWT_SECRET || "book-store-secret";
 // =========================
 router.post("/register", async (req, res, next) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password ,role} = req.body;
 
         if (!name || !email || !password) {
             return res.status(400).json({
@@ -42,7 +42,7 @@ router.post("/register", async (req, res, next) => {
             name,
             email,
             password: hashedPassword,
-            role: "user",
+            role:role|| "user",
         });
 
         return res.status(201).json({
