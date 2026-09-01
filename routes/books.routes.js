@@ -10,13 +10,6 @@ const {
 const router = express.Router();
 
 
-/*
-================================
-GET /books
-Public
-================================
-*/
-
 router.get("/", async (req, res, next) => {
     try {
         const books = await Book.find();
@@ -27,13 +20,6 @@ router.get("/", async (req, res, next) => {
     }
 });
 
-
-/*
-================================
-POST /books
-Authenticated Users Only
-================================
-*/
 
 router.post("/", authenticate, async (req, res, next) => {
     try {
@@ -61,13 +47,6 @@ router.post("/", authenticate, async (req, res, next) => {
     }
 });
 
-
-/*
-================================
-DELETE /books/:id
-Admin Only
-================================
-*/
 
 router.delete(
     "/:id",

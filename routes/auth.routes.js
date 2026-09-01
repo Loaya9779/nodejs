@@ -8,18 +8,10 @@ const router = express.Router();
 
 const JWT_SECRET = process.env.JWT_SECRET || "book-store-secret";
 
-
-/*
-================================
-POST /register
-================================
-*/
-
 router.post("/register", async (req, res, next) => {
     try {
         const { name, email, password } = req.body;
 
-        // Validate input
         if (!name || !email || !password) {
             return res.status(400).json({
                 message: "Name, email and password are required",
@@ -32,7 +24,6 @@ router.post("/register", async (req, res, next) => {
             });
         }
 
-        // Check existing user
         const existingUser = await User.findOne({ email });
 
         if (existingUser) {
@@ -41,10 +32,8 @@ router.post("/register", async (req, res, next) => {
             });
         }
 
-        // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Create user
         const user = await User.create({
             name,
             email,
@@ -67,13 +56,6 @@ router.post("/register", async (req, res, next) => {
     }
 });
 
-
-/*
-================================
-POST /login
-================================
-*/
-
 router.post("/login", async (req, res, next) => {
     try {
         const { email, password } = req.body;
@@ -93,7 +75,6 @@ router.post("/login", async (req, res, next) => {
             });
         }
 
-        // Compare password
         const isMatch = await bcrypt.compare(
             password,
             user.password
@@ -105,7 +86,6 @@ router.post("/login", async (req, res, next) => {
             });
         }
 
-        // Generate JWT
         const token = jwt.sign(
             {
                 userId: user._id,
