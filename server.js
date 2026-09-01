@@ -10,16 +10,22 @@ const connectDB = require("./config/db");
 
 const app = express();
 
+const PORT = 3000;
+
+
 // Connect MongoDB
 connectDB();
+
 
 // Middlewares
 app.use(express.json());
 
 app.use(logger);
 
+
 // Static files
 app.use(express.static("public"));
+
 
 // About
 app.get("/about", (req, res) => {
@@ -29,19 +35,26 @@ app.get("/about", (req, res) => {
     `);
 });
 
+
 // Authentication
 app.use("/", authRoutes);
 
+
 // Books
 app.use("/books", booksRoutes);
+
 
 // 404
 app.use((req, res) => {
     res.status(404).send("<h1>404 - Page Not Found</h1>");
 });
 
+
 // Error Handler
 app.use(errorMiddleware);
 
-// Export app for Vercel
-module.exports = app;
+
+// Start server
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
