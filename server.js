@@ -5,7 +5,6 @@ const express = require("express");
 const booksRoutes = require("./routes/books.routes");
 const authRoutes = require("./routes/auth.routes");
 
-const logger = require("./middleware/logger.middleware");
 const errorMiddleware = require("./middleware/error.middleware");
 
 const connectDB = require("./config/db");
@@ -21,7 +20,7 @@ connectDB();
 
 app.use(express.json());
 
-app.use(logger);
+
 
 
 
