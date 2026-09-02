@@ -13,19 +13,15 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-
 connectDB();
-
-
 
 app.use(express.json());
 
-
-
-
-
 app.use(express.static("public"));
 
+app.get("/", (req, res) => {
+    res.redirect("/books");
+});
 
 app.get("/about", (req, res) => {
     res.status(200).send(`
@@ -34,12 +30,9 @@ app.get("/about", (req, res) => {
     `);
 });
 
-
 app.use("/", authRoutes);
 
-
 app.use("/books", booksRoutes);
-
 
 app.use((req, res) => {
     res.status(404).json({
@@ -48,9 +41,7 @@ app.use((req, res) => {
     });
 });
 
-
 app.use(errorMiddleware);
-
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
