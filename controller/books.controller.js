@@ -1,8 +1,6 @@
 const Book = require("../models/book.model");
 
-// =========================
-// GET ALL BOOKS
-// =========================
+
 const getAllBooks = async (req, res, next) => {
     try {
         const books = await Book.find();
@@ -14,9 +12,6 @@ const getAllBooks = async (req, res, next) => {
 };
 
 
-// =========================
-// CREATE BOOK
-// =========================
 const createBook = async (req, res, next) => {
     try {
         const { title, author, price } = req.body;
@@ -43,9 +38,7 @@ const createBook = async (req, res, next) => {
 };
 
 
-// =========================
-// DELETE BOOK
-// =========================
+
 const deleteBook = async (req, res, next) => {
     try {
         const book = await Book.findByIdAndDelete(req.params.id);

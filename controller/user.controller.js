@@ -5,9 +5,6 @@ const User = require("../models/user.model");
 
 const JWT_SECRET = process.env.JWT_SECRET || "book-store-secret";
 
-// =========================
-// REGISTER
-// =========================
 const registerUser = async (req, res, next) => {
     try {
         const { name, email, password, role } = req.body;
@@ -57,9 +54,6 @@ const registerUser = async (req, res, next) => {
 };
 
 
-// =========================
-// GET ALL USERS
-// =========================
 const getAllUsers = async (req, res, next) => {
     try {
         const users = await User.find().select("-password");
@@ -76,9 +70,6 @@ const getAllUsers = async (req, res, next) => {
 };
 
 
-// =========================
-// LOGIN
-// =========================
 const loginUser = async (req, res, next) => {
     try {
         const { email, password } = req.body;
@@ -130,9 +121,6 @@ const loginUser = async (req, res, next) => {
 };
 
 
-// =========================
-// DELETE USER
-// =========================
 const deleteUser = async (req, res, next) => {
     try {
         const { id } = req.params;
