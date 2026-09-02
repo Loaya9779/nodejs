@@ -1,77 +1,32 @@
 const express = require("express");
 
-const Book = require("../models/book.model");
-
 const {
     authenticate,
     authorizeAdmin,
 } = require("../middleware/auth.middleware");
 
+const {
+    getAllBooks,
+    getBookById,
+    createBook,
+    deleteBook,
+} = require("../controller/books.controller");
 const router = express.Router();
 
 
-router.get("/", async (req, res, next) => {
-    try {
-        const books = await Book.find();
-
-        res.status(200).json(books);
-    } catch (error) {
-        next(error);
-    }
-});
+router.get("/", getAllBooks);
 
 
-router.post("/", authenticate, async (req, res, next) => {
-    try {
-        const { title, author, price } = req.body;
-
-        if (!title || !author || !price) {
-            return res.status(400).json({
-                message: "Title, author and price are required",
-            });
-        }
-
-        const book = await Book.create({
-            title,
-            author,
-            price,
-        });
-
-        res.status(201).json({
-            message: "Book created successfully",
-            book,
-        });
-
-    } catch (error) {
-        next(error);
-    }
-});
+router.post("/", authenticate, createBook);
 
 
 router.delete(
     "/:id",
     authenticate,
     authorizeAdmin,
-    async (req, res, next) => {
-        try {
-            const book = await Book.findByIdAndDelete(req.params.id);
-
-            if (!book) {
-                return res.status(404).json({
-                    message: "Book not found",
-                });
-            }
-
-            res.status(200).json({
-                message: "Book deleted successfully",
-                book,
-            });
-
-        } catch (error) {
-            next(error);
-        }
-    }
+    deleteBook
 );
 
+router.get("/:id", getBookById);
 
 module.exports = router;
